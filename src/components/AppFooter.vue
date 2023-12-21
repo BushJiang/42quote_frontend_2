@@ -1,8 +1,20 @@
 <template>
-  <footer class="bg-white shadow text-center py-4">
-    <p class="text-gray-600">© 2023 金句检索. 版权所有.</p>
-  </footer>
+  <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> 
+ <footer
+  class="bg-neutral-200 text-center dark:bg-neutral-700 lg:text-left">
+  <div class="p-4 text-center text-neutral-700 dark:text-neutral-200">
+    © 2023 Copyright:
+    <a
+      class="text-neutral-800 dark:text-neutral-400"
+      href="https://tw-elements.com/"
+      >TW elements</a
+    >
+   </div>
+ </footer>
 </template>
+
+
+
 
 <script>
 export default {

@@ -1,11 +1,22 @@
 <template>
   <div class="bg-gray-100">
-    <nav-bar />
-    <search-bar @search="search" />
-    <quotes-grid :quotes="quotes" />
-    <app-footer />
+    <!-- 为整个应用程序容器添加一些内边距 -->
+    <div class="container mx-auto p-4">
+      <!-- NavBar组件 -->
+      <nav-bar class="mb-8" />
+      
+      <!-- SearchBar组件，添加底部外边距 -->
+      <search-bar class="mb-8" @search="search" />
+      
+      <!-- QuotesGrid组件，添加底部外边距 -->
+      <quotes-grid class="mb-8" :quotes="quotes" />
+      
+      <!-- AppFooter组件 -->
+      <app-footer />
+    </div>
   </div>
 </template>
+
 
 <script>
 import NavBar from './components/NavBar.vue';
