@@ -35,9 +35,9 @@ export default {
         return;
       }
       try {
-        const url = new URL('http://0.0.0.0:8000/api/search');
+        const url = new URL('/api/search', window.location.origin);
           url.searchParams.append('q', this.searchQuery);
-            url.searchParams.append('neural',true);
+          url.searchParams.append('neural',true);
 
 
           const response = await fetch(url, {
