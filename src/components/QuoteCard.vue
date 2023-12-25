@@ -1,19 +1,32 @@
+
+
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <quote-card v-for="quote in quotes" :key="quote.id" :quote="quote" />
+  <div class="max-w-md rounded overflow-hidden shadow-lg p-4">
+    <p class="text-gray-700 text-base">
+      "{{ quote.document }}"
+    </p>
+    <div class="text-right text-sm text-gray-700">
+      {{ '-- ' + quote.author + ' 《' + quote.rhythmic + '》' }}
+    </div>
   </div>
 </template>
 
-<script>
-import QuoteCard from './QuoteCard.vue';
 
+
+
+
+<script>
 export default {
-  name: "QuotesGrid",
-  components: {
-    QuoteCard
-  },
+  name: "QuoteCard",
   props: {
-    quotes: Array
+    quote: {
+      type: Object,
+      required: true
+    }
   }
 };
 </script>
+
+<style scoped>
+/* 你可以在这里添加一些特定于这个组件的样式 */
+</style>
