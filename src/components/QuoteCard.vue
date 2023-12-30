@@ -1,12 +1,11 @@
 
-
 <template>
   <div class="max-w-md rounded overflow-hidden shadow-lg p-4">
     <p class="text-gray-700 text-base">
-      "{{ quote.document }}"
+      {{ quote.paragraphs[0] }}
     </p>
     <div class="text-right text-sm text-gray-700">
-      {{ '-- ' + quote.author + ' 《' + quote.rhythmic + '》' }}
+      {{ '-- ' + quote.author + ' 《' + quote.title + '》' }}
     </div>
   </div>
 </template>

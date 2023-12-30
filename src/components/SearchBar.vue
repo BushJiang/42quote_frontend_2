@@ -37,13 +37,13 @@ export default {
       try {
         const url = new URL('/api/search', window.location.origin);
           url.searchParams.append('q', this.searchQuery);
-          url.searchParams.append('neural',true);
+         // url.searchParams.append('neural',true);
 
 
           const response = await fetch(url, {
                method: 'GET',
           headers: {
-             'Content-Type': 'application/json',
+             'Content-Type': 'aplpication/json',
              // 其他头部信息
             }
           // 移除了body部分
