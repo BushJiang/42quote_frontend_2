@@ -10,7 +10,7 @@
       <search-bar class="mb-8" @search="search" @dataReceived="handleDataReceived" @fetchError="handleFetchError"/>
       
       <!-- QuotesGrid组件，添加底部外边距 -->
-      <quotes-grid class="mb-8" :quotes="quotes" />
+      <quotes-grid class="mb-8" :quotes="quotes" @dataReceived="handleDataReceived" @fetchError="handleFetchError" />
        <div v-if="quotes && quotes.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <quote-card v-for="quote in quotes" :key="quote.id" :quote="quote" />
         </div>
