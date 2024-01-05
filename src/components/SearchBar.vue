@@ -7,6 +7,7 @@
         type="text" 
         placeholder="Enter a query" 
         class="w-full p-2 rounded-l-md border-2 border-r-0 border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+        @keyup.enter="search"
       />
     </div>
     <!-- 搜索按钮 -->
