@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100">
+  <div class="bg-white">
     <!-- 为整个应用程序容器添加一些内边距 -->
     <div class="container mx-auto p-4">
       <!-- NavBar组件 -->
@@ -10,7 +10,7 @@
       <search-bar class="mb-8" @search="search" @dataReceived="handleDataReceived" @fetchError="handleFetchError"/>
       
       <!-- QuotesGrid组件，添加底部外边距 -->
-      <quotes-grid class="mb-8" :quotes="quotes" @dataReceived="handleDataReceived" @fetchError="handleFetchError" />
+      <quotes-grid class="mb-16" :quotes="quotes"  />
        <div v-if="quotes && quotes.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <quote-card v-for="quote in quotes" :key="quote.id" :quote="quote" />
         </div>
@@ -30,9 +30,26 @@ import NavBar from './components/NavBar.vue';
 import SearchBar from './components/SearchBar.vue';
 import QuotesGrid from './components/QuotesGrid.vue';
 import AppFooter from './components/AppFooter.vue';
+import { provide, ref } from 'vue';
 
 
 export default {
+
+  setup() {
+    const searchQuery = ref('');
+    const activeElement = ref('semantic');
+    const selectedAuthors = ref([]);
+    const quotes = ref([]);
+
+// 之后可以增加更多
+    provide('searchQuery', searchQuery);
+    provide('activeElement', activeElement);
+    provide('selectedAuthors', selectedAuthors);
+    provide('quotes', quotes);
+
+    return { searchQuery, activeElement , selectedAuthors,quotes};
+  },
+
   name: 'App',
   components: {
     NavBar,
@@ -42,7 +59,7 @@ export default {
   },
   data() {
     return {
-      quotes: []
+     // quotes: []
     };
   },
   methods: {
