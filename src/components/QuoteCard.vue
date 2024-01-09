@@ -8,8 +8,8 @@
     <p class="text-gray-700 text-base">
       {{ quote.paragraphs[0] }}
     </p>
-    <div class="text-right text-sm text-gray-700">
-      {{ '—— ' + quote.author + ' 《' + quote.title + '》' }}
+    <div class="text-right text-sm italic font-semibold text-blue-gray-400"> <!-- 调整了这里的样式 -->
+      {{ '—— ' + quote.author }}<template v-if="quote.title.length <= 15">《{{ quote.title }}》</template>
     </div>
   </div>
 </template>
@@ -95,6 +95,16 @@ export default {
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   z-index: 10; /* 确保悬浮栏显示在内容之上 */
+}
+
+.text-blue-gray-400 {
+  color: #cbd5e1; /* 这是一种较浅的蓝灰色 */
+}
+.italic {
+  font-style: italic; /* 斜体 */
+}
+.font-semibold {
+  font-weight: 400; /* 半粗体 */
 }
 </style>
 
