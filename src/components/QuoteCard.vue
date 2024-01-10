@@ -10,7 +10,7 @@
     </p>
     <div class="text-right text-sm italic font-semibold text-blue-gray-400">
       {{ '—— ' + quote.author }}
-      <!-- 修改了这里的逻辑 -->
+      <!-- 重新编写的逻辑 -->
       <template v-if="quote.title.length <= 15">
         <template v-if="quote.title.includes('《') && quote.title.includes('》')">
           {{ quote.title }}
@@ -19,12 +19,10 @@
           《{{ quote.title }}》
         </template>
       </template>
-      <template v-else>
-        {{ quote.title }}
-      </template>
     </div>
   </div>
 </template>
+
 
 
 <script>
