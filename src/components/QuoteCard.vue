@@ -8,11 +8,24 @@
     <p class="text-gray-700 text-base">
       {{ quote.paragraphs[0] }}
     </p>
-    <div class="text-right text-sm italic font-semibold text-blue-gray-400"> <!-- 调整了这里的样式 -->
-      {{ '—— ' + quote.author }}<template v-if="quote.title.length <= 15">《{{ quote.title }}》</template>
+    <div class="text-right text-sm italic font-semibold text-blue-gray-400">
+      {{ '—— ' + quote.author }}
+      <!-- 修改了这里的逻辑 -->
+      <template v-if="quote.title.length <= 15">
+        <template v-if="quote.title.includes('《') && quote.title.includes('》')">
+          {{ quote.title }}
+        </template>
+        <template v-else>
+          《{{ quote.title }}》
+        </template>
+      </template>
+      <template v-else>
+        {{ quote.title }}
+      </template>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
