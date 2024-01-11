@@ -111,15 +111,32 @@ export default {
 
 
       try {
+          // 从环境变量中读取后端url
+          // Vue CLI 根据运行环境，自动判断加载不同的环境文件（.vue 或者 .vue.production）
+          // 比如，运行 npm run serve，构建开发用的vue应用，Vue CLI 会自动加载.env 文件中的变量，如果存在 .env.development 文件，也会加载，并且覆盖同名变量。
+          // 运行 npm run build，构建生产用的vue应用，Vue CLI 会自动加载 .env 文件中的变量，如果存在 .env.production 文件，也会加载，并且覆盖同名变量。
+          // 但是，在实际部署（生产环境）中，环境变量一般在部署服务（比如render）的配置页面中设置，而不是读取 .env 文件中的变量（因为它们一般不上传）
+
+          // || window.location.origin：这是一个逻辑或操作符，用于提供一个回退选项。
+          // 如果 process.env.VUE_APP_BACKEND_URL 未定义（例如，当在本地环境中没有设置该环境变量时），
+          // 则使用 window.location.origin。它返回当前网页的原始 URL（协议、域名和端口），例如 http://localhost:8080。
+          const baseUrl = process.env.VUE_APP_BACKEND_URL || window.location.origin;
+
+          // 调试前端请求
+          console.log("Making request to:", baseUrl);
+
+
+
+
           let url;
           if (this.selectedAuthors.length > 0 ){
 
-            url = new URL('/api/search_filter', window.location.origin);
+            url = new URL('/api/search_filter', baseUrl);
             url.searchParams.append('q', this.searchQuery);  
             url.searchParams.append('author', this.selectedAuthors[0]);
 
           }else{
-            url = new URL('/api/search', window.location.origin);
+            url = new URL('/api/search', baseUrl);
             url.searchParams.append('q', this.searchQuery);
             console.log("添加的作者"+this.selectedAuthors[0]);
 
