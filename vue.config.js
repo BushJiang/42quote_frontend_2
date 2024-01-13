@@ -19,12 +19,12 @@ module.exports = {
     //   }
     // }
       // 添加以下配置以支持 WebSocket 安全连接
-      https: true,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-        "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
-      },
+      // https: true,
+      // headers: {
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      //   "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+      // },
 
     allowedHosts: ['four2quote-frontend-2.onrender.com', 'localhost'],
     // 如果您决定完全禁用主机检查（仅用于本地开发环境）:
