@@ -26,7 +26,7 @@ module.exports = {
         "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
       },
 
-    // allowedHosts: ['four2quote-frontend-2.onrender.com', 'localhost'],
+    allowedHosts: ['four2quote-frontend-2.onrender.com', 'localhost'],
     // 如果您决定完全禁用主机检查（仅用于本地开发环境）:
     // disableHostCheck: true,
 
