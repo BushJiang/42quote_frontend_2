@@ -1,20 +1,20 @@
+# 第一阶段：构建应用
 # 基于官方 Node.js Docker 镜像
-FROM node:14
-
+FROM node:14 as build
 # 设置工作目录
 WORKDIR /app
-
-# 复制package.json和package-lock.json（如果存在）
+# 把package.json和package-lock.json复制到容器工作目录 /app 中
 COPY package*.json ./
-
 # 安装项目依赖
 RUN npm install
-
-# 复制项目文件和目录到工作目录
+# 复制项目文件
 COPY . .
+# 构建静态文件
+RUN npm run build
 
-# 暴露容器运行时的端口
-EXPOSE 8080
-
-# 启动应用
-CMD [ "npm", "run", "serve" ]
+# 第二阶段：使用 Nginx 作为静态文件服务器
+# 使用 Nginx
+FROM nginx:stable-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
