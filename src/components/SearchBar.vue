@@ -148,7 +148,7 @@ export default {
           const response = await fetch(url, {
                method: 'GET',
           headers: {
-             'Content-Type': 'aplpication/json',
+             'Content-Type': 'application/json',
              // 其他头部信息
             }
           // 移除了body部分
