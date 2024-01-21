@@ -120,8 +120,11 @@ export default {
           // || window.location.origin：这是一个逻辑或操作符，用于提供一个回退选项。
           // 如果 process.env.VUE_APP_BACKEND_URL 未定义（例如，当在本地环境中没有设置该环境变量时），
           // 则使用 window.location.origin。它返回当前网页的原始 URL（协议、域名和端口），例如 http://localhost:8080。
+          
+          // 注意：在开发环境，可以从环境变量中获取后端url，但是使用了nginx后，它无法从环境变量中获取后端url，所以要直接写出url
           // const baseUrl = process.env.VUE_APP_BACKEND_URL || window.location.origin;
-          const baseUrl = "https://four2quote-backend.onrender.com";
+          // const baseUrl = "https://four2quote-backend.onrender.com";
+          const baseUrl = "/api";
 
           // 调试前端请求
           console.log("Making request to:", baseUrl);
