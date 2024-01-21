@@ -123,8 +123,15 @@ export default {
           
           // 注意：在开发环境，可以从环境变量中获取后端url，但是使用了nginx后，它无法从环境变量中获取后端url，所以要直接写出url
           // const baseUrl = process.env.VUE_APP_BACKEND_URL || window.location.origin;
+
+          // 这种设置将 API 请求的完整 URL 硬编码为指定的后端服务地址。
+          // 前端应用会直接向这个地址发送请求，完全绕过任何前端服务器或代理，比如Nginx。
+          // 这意味着无论用户通过何种方式访问前端应用，后端请求始终发送到这个固定的 URL。
           // const baseUrl = "https://four2quote-backend.onrender.com";
-          const baseUrl = "/api";
+
+          // 这种设置表示所有的 API 请求都会被发送到加载前端应用的同一域名下的 /api 路径。
+          // 当使用 Nginx 作为反向代理时，这意味着 Nginx 配置中应该有一个 location 块来匹配 /api 并将这些请求转发到实际的后端服务。
+          const baseUrl = "/api/";
 
           // 调试前端请求
           console.log("Making request to:", baseUrl);
