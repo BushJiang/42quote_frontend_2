@@ -122,16 +122,20 @@ export default {
           // 则使用 window.location.origin。它返回当前网页的原始 URL（协议、域名和端口），例如 http://localhost:8080。
           
           // 注意：在开发环境，可以从环境变量中获取后端url，但是使用了nginx后，它无法从环境变量中获取后端url，所以要直接写出url
+          // 因为无法从环境变量中获取后端url，baseUrl 将会回退到 window.location.origin。这会导致所有 API 请求被发送到前端应用的服务器。
+          // 由于前端服务器通常只配置为提供静态文件，当它收到 API 请求 /api/search 时，并没有相应的处理逻辑或转发规则，所以它会尝试在其静态文件目录中查找匹配的文件。
+          // 当然，这样的文件是不存在的，因此返回 404 错误。
           // const baseUrl = process.env.VUE_APP_BACKEND_URL || window.location.origin;
 
           // 这种设置将 API 请求的完整 URL 硬编码为指定的后端服务地址。
           // 前端应用会直接向这个地址发送请求，完全绕过任何前端服务器或代理，比如Nginx。
           // 这意味着无论用户通过何种方式访问前端应用，后端请求始终发送到这个固定的 URL。
-          // const baseUrl = "https://four2quote-backend.onrender.com";
+          const baseUrl = "https://four2quote-backend.onrender.com";
 
+          // 注意：这种写法报错，原因未知
           // 这种设置表示所有的 API 请求都会被发送到加载前端应用的同一域名下的 /api 路径。
           // 当使用 Nginx 作为反向代理时，这意味着 Nginx 配置中应该有一个 location 块来匹配 /api 并将这些请求转发到实际的后端服务。
-          const baseUrl = "/api/";
+          // const baseUrl = "/api/";
 
           // 调试前端请求
           console.log("Making request to:", baseUrl);
