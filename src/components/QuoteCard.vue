@@ -113,7 +113,11 @@ copyToClipboard(text) {
      this.clearSelectedAuthors()
      this.updateSearchQuery(this.quote.paragraphs[0]);
       try {
-        const url = new URL('/api/search', window.location.origin);
+        // 后端url
+        const baseUrl = "https://four2quote-backend.onrender.com";
+
+
+        const url = new URL('/api/search', baseUrl);
           url.searchParams.append('q', this.quote.paragraphs[0]);
          // url.searchParams.append('neural',true);
           const response = await fetch(url, {
