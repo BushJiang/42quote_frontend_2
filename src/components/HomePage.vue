@@ -131,20 +131,21 @@ setup() {
       }
 
       try {
+          const baseUrl = "https://four2quote-backend.onrender.com";
           let url;
           if (this.selectedAuthors.length > 0 ){
 
-            url = new URL('/api/search_filter', window.location.origin);
+            url = new URL('/api/search_filter', baseUrl);
             url.searchParams.append('q', this.searchQuery);  
             url.searchParams.append('author', this.selectedAuthors[0]);
 
           }else{
-            url = new URL('/api/search', window.location.origin);
+            url = new URL('/api/search', baseUrl);
             url.searchParams.append('q', this.searchQuery);
             console.log("添加的作者"+this.selectedAuthors[0]);
 
           }
-      // const url = new URL('/api/search', window.location.origin);
+      // const url = new URL('/api/search', baseUrl);
       // url.searchParams.append('q', this.searchQuery);
       // console.log("添加的作者"+this.selectedAuthors[0]);
 
