@@ -124,7 +124,7 @@
        try {
            let url;
            if (this.selectedAuthors.length > 0 ){
-             const baseUrl = "http://backend-42quote.ns-glk36y0o.svc.cluster.local:8000";
+             const baseUrl = "https://four2quote-backend.onrender.com";
  
              url = new URL('/api/search_filter', baseUrl);
              url.searchParams.append('q', this.searchQuery);  
