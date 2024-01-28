@@ -4,7 +4,7 @@
     <nav class="flex items-center justify-between py-3">
       <!-- 左边的图标 -->
       <div class="ml-4">
-        <img src="@/assets/logo.png" alt="My Image" class="h-12 w-12">
+        <img src="@/assets/logo.png" @click="navigateToHome" alt="My Image" class="h-12 w-12">
       </div>
       
       <!-- 右侧功能图标和登录按钮 -->
@@ -44,11 +44,51 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
+import { inject } from 'vue';
 export default {
   name: 'NavBar',
   components: {
     FontAwesomeIcon
+  },
+  setup() {
+    const searchQuery = inject('searchQuery');
+    const activeElement = inject('activeElement');
+    const selectedAuthors = inject('selectedAuthors');
+    const quotes = inject('quotes');
+
+    console.log('执行setup函数')
+    
+
+    const updateSearchQuery = (value) => {
+      searchQuery.value = value;
+    };
+
+    const updateQuotes = (value) => {
+      quotes.value = value;
+    };
+
+    const setActiveElement = (element) => {
+      activeElement.value = element;
+    };
+
+    const clearSelectedAuthors = () => {
+    selectedAuthors.value = [];
+  };
+
+    console.log("searchQuery的值"+searchQuery.value)
+
+    // 可以直接修改或使用这些值
+    // 例如，修改 searchQuery
+    // searchQuery.value = 'new query';
+    
+    return { searchQuery, activeElement ,quotes,selectedAuthors,updateSearchQuery,setActiveElement,updateQuotes,clearSelectedAuthors};
+  },
+  methods:{
+      navigateToHome() {
+      this.updateSearchQuery("")
+      this.clearSelectedAuthors()
+      this.$router.push('/');
+    },
   }
 };
 </script>
