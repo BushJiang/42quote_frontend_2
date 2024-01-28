@@ -15,8 +15,8 @@
             {{ author }}
           </button>
         </div>
-        <!-- 人性大师区域 -->
-        <h2 class="text-lg font-semibold mt-4">人性大师</h2>
+        <!-- 世界文豪区域 -->
+        <h2 class="text-lg font-semibold mt-4">世界文豪</h2>
         <div class="inline-flex rounded-md shadow-sm mt-1 mb-4" role="group">
           <button v-for="mood in ['光明', '黑暗', '灰色']" :key="mood"
                   class="px-4 py-1 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-l-md hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-gray-300"
@@ -70,7 +70,7 @@ export default {
     QuoteCard
   },
   props: {
-    quotes: Array
+    // quotes: Array
   },
   data() {
     return {
@@ -88,6 +88,7 @@ export default {
     const searchQuery = inject('searchQuery');
     const activeElement = inject('activeElement');
     const selectedAuthors = inject('selectedAuthors');
+    const quotes = inject('quotes');
 
     const toggleAuthorSelection = (data) => { 
       const index = selectedAuthors.value.indexOf(data);
@@ -97,7 +98,7 @@ export default {
         selectedAuthors.value.splice(index, 1);
       }
     };
-    return { searchQuery, activeElement ,selectedAuthors,toggleAuthorSelection};
+    return { searchQuery, activeElement ,selectedAuthors,toggleAuthorSelection,quotes};
   },
  computed: {
  
