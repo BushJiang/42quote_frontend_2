@@ -1,6 +1,5 @@
 <template>
   <div class="flex flex-col items-center justify-center mt-4">
-    <h1 class="text-2xl md:text-4xl text-center mb-14" style="font-family: 'Brush Script MT', cursive;">一键获取最懂你的金句</h1>
     <div class="w-full md:w-1/2">
       <div class="relative">
         <input
@@ -75,7 +74,6 @@ export default {
       quotes.value = value;
     };
 
-
     const setActiveElement = (element) => {
       activeElement.value = element;
     };
@@ -90,16 +88,16 @@ export default {
   },
 
 
-  // setActiveElement(element) {
-   
-  //    this.activeElement = element;
 
-  // },
 
   methods: {
 
-
+  navigate() {
+      this.$router.push('/search');
+    },
   async search() {
+
+     
 
      console.log(this.searchQuery)
       
@@ -109,40 +107,8 @@ export default {
         return;
       }
 
-
       try {
-          // 从环境变量中读取后端url
-          // Vue CLI 根据运行环境，自动判断加载不同的环境文件（.vue 或者 .vue.production）
-          // 比如，运行 npm run serve，构建开发用的vue应用，Vue CLI 会自动加载.env 文件中的变量，如果存在 .env.development 文件，也会加载，并且覆盖同名变量。
-          // 运行 npm run build，构建生产用的vue应用，Vue CLI 会自动加载 .env 文件中的变量，如果存在 .env.production 文件，也会加载，并且覆盖同名变量。
-          // 但是，在实际部署（生产环境）中，环境变量一般在部署服务（比如render）的配置页面中设置，而不是读取 .env 文件中的变量（因为它们一般不上传）
-
-          // || window.location.origin：这是一个逻辑或操作符，用于提供一个回退选项。
-          // 如果 process.env.VUE_APP_BACKEND_URL 未定义（例如，当在本地环境中没有设置该环境变量时），
-          // 则使用 window.location.origin。它返回当前网页的原始 URL（协议、域名和端口），例如 http://localhost:8080。
-          
-          // 注意：在开发环境，可以从环境变量中获取后端url，但是使用了nginx后，它无法从环境变量中获取后端url，所以要直接写出url
-          // 因为无法从环境变量中获取后端url，baseUrl 将会回退到 window.location.origin。这会导致所有 API 请求被发送到前端应用的服务器。
-          // 由于前端服务器通常只配置为提供静态文件，当它收到 API 请求 /api/search 时，并没有相应的处理逻辑或转发规则，所以它会尝试在其静态文件目录中查找匹配的文件。
-          // 当然，这样的文件是不存在的，因此返回 404 错误。
-          // const baseUrl = process.env.VUE_APP_BACKEND_URL || window.location.origin;
-
-          // 这种设置将 API 请求的完整 URL 硬编码为指定的后端服务地址。
-          // 前端应用会直接向这个地址发送请求，完全绕过任何前端服务器或代理，比如Nginx。
-          // 这意味着无论用户通过何种方式访问前端应用，后端请求始终发送到这个固定的 URL。
           const baseUrl = "https://four2quote-backend.onrender.com";
-
-          // 注意：这种写法报错，原因未知
-          // 这种设置表示所有的 API 请求都会被发送到加载前端应用的同一域名下的 /api 路径。
-          // 当使用 Nginx 作为反向代理时，这意味着 Nginx 配置中应该有一个 location 块来匹配 /api 并将这些请求转发到实际的后端服务。
-          // const baseUrl = "/api/";
-
-          // 调试前端请求
-          console.log("Making request to:", baseUrl);
-
-
-
-
           let url;
           if (this.selectedAuthors.length > 0 ){
 
@@ -156,14 +122,15 @@ export default {
             console.log("添加的作者"+this.selectedAuthors[0]);
 
           }
-      // const url = new URL('/api/search', window.location.origin);
+
+      // const url = new URL('/api/search', baseUrl);
       // url.searchParams.append('q', this.searchQuery);
       // console.log("添加的作者"+this.selectedAuthors[0]);
 
           const response = await fetch(url, {
                method: 'GET',
           headers: {
-             'Content-Type': 'application/json',
+             'Content-Type': 'aplpication/json',
              // 其他头部信息
             }
           // 移除了body部分
@@ -178,6 +145,7 @@ export default {
       //   // 发送数据给父组件
       //   this.$emit('dataReceived', data.result);
       this.updateQuotes(data.result)
+      console.log("更新了返回结构")
 
 
 
@@ -186,6 +154,8 @@ export default {
         // 可以选择也将错误信息通过事件发送给父组件
         this.$emit('fetchError', error);
       }
+
+     this.navigate()
       
     }
   }
