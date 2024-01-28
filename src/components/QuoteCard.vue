@@ -26,6 +26,7 @@
 
 
 <script>
+import { inject } from 'vue';
 export default {
   name: "QuoteCard",
   props: {
@@ -34,32 +35,87 @@ export default {
       required: true
     }
   },
+  setup() {
+    const searchQuery = inject('searchQuery');
+    const activeElement = inject('activeElement');
+    const selectedAuthors = inject('selectedAuthors');
+    const quotes = inject('quotes');
+
+    console.log('执行setup函数')
+    
+
+    const updateSearchQuery = (value) => {
+      searchQuery.value = value;
+    };
+
+    const updateQuotes = (value) => {
+      quotes.value = value;
+    };
+
+    const setActiveElement = (element) => {
+      activeElement.value = element;
+    };
+
+    const clearSelectedAuthors = () => {
+    selectedAuthors.value = [];
+  };
+
+    console.log("searchQuery的值"+searchQuery.value)
+
+    // 可以直接修改或使用这些值
+    // 例如，修改 searchQuery
+    // searchQuery.value = 'new query';
+    
+    return { searchQuery, activeElement ,quotes,selectedAuthors,updateSearchQuery,setActiveElement,updateQuotes,clearSelectedAuthors};
+  },
   methods: {
   copyText() {
-    // 创建一个文本区域元素
-    const textarea = document.createElement('textarea');
-    // 设置文本内容为引用的第一段、作者和标题
-    textarea.value = `${this.quote.paragraphs[0]} —— ${this.quote.author} 《${this.quote.title}》`;
-    // 将文本区域元素添加到文档中
-    document.body.appendChild(textarea);
-    // 选中文本区域的内容
-    textarea.select();
-    // 执行复制命令
-    document.execCommand('copy');
-    // 移除文本区域元素
-    document.body.removeChild(textarea);
-  },
+  console.log('Original title:', this.quote.title); // 调试输出原标题
+
+  // 检查并在必要时修改标题
+  let title = this.quote.title;
+  if (!title.startsWith('《') || !title.endsWith('》')) {
+    title = `《${title}》`;
+  }
+
+  console.log('Modified title:', title); // 调试输出修改后的标题
+
+  // 创建文本内容
+  const textToCopy = `${this.quote.paragraphs[0]} —— ${this.quote.author} ${title}`;
+  console.log('Text to copy:', textToCopy); // 调试输出要复制的文本
+
+  // 调用复制到剪贴板的函数
+  this.copyToClipboard(textToCopy);
+},
+
+copyToClipboard(text) {
+  // 创建一个文本区域元素
+  const textarea = document.createElement('textarea');
+  textarea.style.position = 'absolute'; // 使文本框不可见
+  textarea.style.left = '-9999px';
+  // 设置文本内容
+  textarea.value = text;
+  // 将文本区域元素添加到文档中
+  document.body.appendChild(textarea);
+  // 选中文本区域的内容
+  textarea.select();
+  // 执行复制命令
+  const successful = document.execCommand('copy');
+  console.log('Copy successful:', successful); // 调试输出是否复制成功
+
+  // 移除文本区域元素
+  document.body.removeChild(textarea);
+},
     addToFavorites() {
       // 实现添加到收藏的逻辑
     },
     async searchItem() {
-     
+     this.clearSelectedAuthors()
+     this.updateSearchQuery(this.quote.paragraphs[0]);
       try {
         const url = new URL('/api/search', window.location.origin);
           url.searchParams.append('q', this.quote.paragraphs[0]);
          // url.searchParams.append('neural',true);
-
-
           const response = await fetch(url, {
                method: 'GET',
           headers: {
@@ -76,7 +132,7 @@ export default {
         const data = await response.json();
        // console.log(data.result);
         // 发送数据给父组件
-        this.$emit('dataReceived', data.result);
+        this.updateQuotes(data.result)
       } catch (error) {
         console.error('Fetch error:', error);
         // 可以选择也将错误信息通过事件发送给父组件
